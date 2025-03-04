@@ -46,6 +46,9 @@ module.exports = {
       exposes: {
         './Catalogue': './src/Catalogue',
       },
+      remotes: {
+        preview: 'preview@http://localhost:3033/productPreview.js',
+      },
       shared: {
         react: {
           singleton: true,

@@ -4,7 +4,7 @@ import Watchlist from './Watchlist';
 
 const mount = (el) => {
   const root = createRoot(el);
-  root.render(<Watchlist userId={1} profileId={1} />);
+  root.render(<Watchlist />);
   return root;
 };
 

@@ -6,3 +6,17 @@ body {
     @apply bg-neutral-800;
     @apply text-neutral-100;
 }
+
+.netflix-row {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+}
+
+.netflix-card {
+  min-width: 200px;
+  height: 300px;
+  background-color: #333;
+  margin-right: 10px;
+  border-radius: 4px;
+}

@@ -13,10 +13,25 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import './styles.css';
 
-// Initialisation de React 18 avec createRoot
-const container = document.getElementById('root');
-const root = createRoot(container);
+// Mount function to start up the app
+const mount = (el) => {
+  const root = createRoot(el);
+  root.render(<App />);
+  return root;
+};
 
-// Rendu de l'application
-root.render(<App />); 
+// If we are in development and in isolation,
+// call mount immediately
+if (process.env.NODE_ENV === 'development') {
+  const devRoot = document.querySelector('#root');
+
+  if (devRoot) {
+    mount(devRoot);
+  }
+}
+
+// We are running through container
+// and we should export the mount function
+export { mount }; 

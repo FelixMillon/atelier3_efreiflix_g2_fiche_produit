@@ -21,7 +21,7 @@ const Notation = ({ movieId }) => {
                     value={rating}
                     size={30}
                     edit={false}
-                    activeColor="#ffd700"
+                    activeColor="#e40813"
                     isHalf={true}
                 />
             ) : (

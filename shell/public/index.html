@@ -4,6 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EFREIFlix</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        #root {
+            min-height: 100vh;
+        }
+        /* Netflix-like scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141414;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E50914;
+            border-radius: 4px;
+        }
+        
+        /* Loading animation */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        .loading-placeholder {
+            animation: pulse 1.5s infinite;
+            background-color: #333;
+            border-radius: 4px;
+            height: 200px;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Netflix-like shimmer effect */
+        .loading-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 150%; }
+        }
+        
+        /* Netflix-like row of cards */
+        .netflix-row {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            gap: 10px;
+        }
+        
+        .netflix-card {
+            flex: 0 0 auto;
+            width: 200px;
+            height: 300px;
+            background-color: #333;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .netflix-card:hover {
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div id="root"></div>

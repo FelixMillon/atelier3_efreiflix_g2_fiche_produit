@@ -7,3 +7,6 @@ coverage/
 .vscode/
 *.log
 .idea/
+.lh/
+.lh-cache/
+.history/

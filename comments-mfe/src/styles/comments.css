@@ -1,0 +1,196 @@
+/* Style global */
+body {
+    background-color: #141414;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Style du conteneur principal */
+.netflix-comments {
+    background-color: #141414;
+    color: #fff;
+    padding: 20px;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1,
+h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Header et Stats */
+.comments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.comments-stats {
+    display: flex;
+    justify-content: space-between;
+    color: #999;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+/* Liste des commentaires */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.comment {
+    background-color: #181818;
+    border-radius: 4px;
+    padding: 16px;
+    transition: background-color 0.2s;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.comment:hover {
+    background-color: #232323;
+}
+
+/* En-tête du commentaire */
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.username {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Métadonnées du commentaire */
+.comment-meta {
+    display: flex;
+    gap: 15px;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.likes {
+    color: #E50914;
+}
+
+/* Contenu du commentaire */
+.comment-content {
+    color: #d2d2d2;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+/* Actions sur les commentaires */
+.comment-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.helpful-btn,
+.report-btn {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.helpful-btn:hover,
+.report-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.helpful-btn.active {
+    color: #E50914;
+}
+
+/* Sélecteur de tri */
+.sort-select {
+    background-color: #232323;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 32px;
+}
+
+.sort-select:hover {
+    background-color: #2a2a2a;
+}
+
+.sort-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(229, 9, 20, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .netflix-comments {
+        padding: 10px;
+    }
+
+    .comments-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .comment-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

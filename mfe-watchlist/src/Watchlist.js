@@ -2,31 +2,63 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './styles.css';
 
-const Watchlist = ({ userId, profileId }) => {
+const Watchlist = () => {
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [moviesWithPosters, setMoviesWithPosters] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [profileId, setProfileId] = useState(null);
 
-  const fetchData = async () => {
-    try {
-      console.log('Fetching data for user ID:', userId);
-      const userResponse = await fetch(`http://localhost:3001/users/?id=${userId}`);
-      const user = await userResponse.json();
 
-      // on cherche le profil donc userId et profileId
-      const profile = user[0].profiles.filter(profile => profile.id.toString() === profileId.toString());
-      setProfileData(profile[0]);
-
-    } catch (error) {
-      console.error('Erreur lors de la récupération des données:', error);
-    } finally {
-      setLoading(false);
+  const getUserFromLocalStorage = () => {
+    const userLocalStorage = localStorage.getItem('user');
+    if (!userLocalStorage) {
+      console.error('Aucun utilisateur trouvé.');
+      return null;
     }
+    const userData = JSON.parse(userLocalStorage);
+    return { userId: userData.id, profileId: userData.profileId };
   };
 
+
   useEffect(() => {
+    const userData = getUserFromLocalStorage();
+    if (userData) {
+      setUserId(userData.userId);
+      setProfileId(userData.profileId);
+    }
+  }, []);
+
+
+  useEffect(() => {
+    if (!userId || !profileId) return;
+    const fetchData = async () => {
+      try {
+        const userLocalStorage = localStorage.getItem('user');
+        if (!userLocalStorage) {
+          console.error('Aucun utilisateur trouvé.');
+          return;
+        }
+        const userId = JSON.parse(userLocalStorage).id;
+        const profileId = JSON.parse(userLocalStorage).profileId;
+
+        console.log('Fetching data for user ID:', userId);
+        const userResponse = await fetch(`http://localhost:3001/users/?id=${userId}`);
+        const user = await userResponse.json();
+
+        // on cherche le profil donc userId et profileId
+        const profile = user[0].profiles.filter(profile => profile.id.toString() === profileId.toString());
+        setProfileData(profile[0]);
+
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchData();
-  }, [userId]);
+  }, [userId, profileId]);
+
 
   useEffect(() => {
     if (profileData) {
@@ -78,46 +110,60 @@ const Watchlist = ({ userId, profileId }) => {
   const watchlistMovies = moviesWithPosters.filter(movie => profileData.watchlist.includes(movie.id));
   const favoriteMovies = moviesWithPosters.filter(movie => profileData.favorites.includes(movie.id));
 
+  const handleClick = async (movieId) => {
+    // TODO: Implementer la redirection vers la page du film
+    console.log('Click on movie', movieId);
+  };
+
+
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Watchlist MFE</h1>
-
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-4">Films à Voir</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="bg-transparent rounded-lg p-6 mb-6">
+        <h2 className="text-white text-xl font-semibold mb-4">Films à Voir</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {watchlistMovies.length > 0 ? (
             watchlistMovies.map((movie) => (
-              <div key={movie.id} className="movie-card p-4 border border-gray-200 rounded-lg">
-                <img src={movie.posterUrl} alt={movie.title} className="w-full h-48 object-cover rounded-lg mb-2" />
-                <h3 className="text-lg font-bold">{movie.title}</h3>
-                <p>{movie.year}</p>
-                <a href={movie.trailerUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                  Voir la bande-annonce
-                </a>
+              <div
+              key={movie.id}
+              onClick={() => handleClick(movie.id)}
+              className="movie-card bg-gray-900 text-white p-2 rounded-lg overflow-hidden relative cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg">
+                <img src={movie.posterUrl} alt={movie.title} className="w-full aspect-2/3 object-cover rounded-lg" />
+                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black p-3">
+                  <h3 className="text-lg font-bold truncate">{movie.title}</h3>
+                  <p className="text-sm opacity-75">{movie.year}</p>
+                  <a href={movie.trailerUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 text-sm mt-1 inline-block">
+                    Voir la bande-annonce
+                  </a>
+                </div>
               </div>
             ))
           ) : (
-            <p>Aucun film à voir pour le moment.</p>
+            <p className="text-gray-400">Aucun film à voir pour le moment.</p>
           )}
         </div>
       </div>
 
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">Films Aimés</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="bg-transparent rounded-lg p-6">
+        <h2 className="text-white text-xl font-semibold mb-4">Films Aimés</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {favoriteMovies.length > 0 ? (
             favoriteMovies.map((movie) => (
-              <div key={movie.id} className="movie-card p-4 border border-gray-200 rounded-lg">
-                <img src={movie.posterUrl} alt={movie.title} className="w-full h-48 object-cover rounded-lg mb-2" />
-                <h3 className="text-lg font-bold">{movie.title}</h3>
-                <p>{movie.year}</p>
-                <a href={movie.trailerUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                  Voir la bande-annonce
-                </a>
+              <div
+              key={movie.id}
+              onClick={() => handleClick(movie.id)}
+              className="movie-card bg-gray-900 text-white p-2 rounded-lg overflow-hidden relative cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg">
+                <img src={movie.posterUrl} alt={movie.title} className="w-full aspect-2/3 object-cover rounded-lg" />
+                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black p-3">
+                  <h3 className="text-lg font-bold truncate">{movie.title}</h3>
+                  <p className="text-sm opacity-75">{movie.year}</p>
+                  <a href={movie.trailerUrl} target="_blank" rel="noopener noreferrer" className="text-blue-400 text-sm mt-1 inline-block">
+                    Voir la bande-annonce
+                  </a>
+                </div>
               </div>
             ))
           ) : (
-            <p>Aucun film aimé pour le moment.</p>
+            <p className="text-gray-400">Aucun film aimé pour le moment.</p>
           )}
         </div>
       </div>
@@ -126,3 +172,4 @@ const Watchlist = ({ userId, profileId }) => {
 };
 
 export default Watchlist;
+
