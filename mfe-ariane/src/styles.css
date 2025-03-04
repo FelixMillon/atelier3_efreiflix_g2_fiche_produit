@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ariane-box {
+    display: flex;
+    flex-direction: row;
+    padding: 0.325rem;
+    padding-left: 1rem;
+    background-color: #000000;
+    color: white;
+}
+
+.ariane-current {
+    text-decoration: underline;
+    color: rgb(229, 9, 20);
+    font-weight: bold;
+}

@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
+
 // Remove header import
 // const Header = React.lazy(() => import('header/Header'));
 // We'll use the real MFEs instead of the skeleton

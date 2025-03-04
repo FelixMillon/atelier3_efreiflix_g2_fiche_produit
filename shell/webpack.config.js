@@ -30,6 +30,7 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "shell",
       remotes: {
+
         // Updated remote URLs to use Vercel deployments
         // Use the deployed URLs when available, otherwise fallback to localhost for development
         catalogue_G1: process.env.NODE_ENV === 'production' 
