@@ -6,10 +6,10 @@ const Notation = ({ movieId }) => {
     let [rating, setRating] = React.useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/movies/${movieId}`)
+        fetch(`http://localhost:3001/movies/?id=${movieId}`)
             .then((res) => res.json())
             .then((data) => {
-                setRating(data.rating);
+                setRating(data[0].rating);
             });
     }, [movieId]);
 
