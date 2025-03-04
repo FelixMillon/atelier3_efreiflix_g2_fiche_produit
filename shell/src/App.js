@@ -242,7 +242,7 @@ const App = () => {
         {/* Hero banner section - only show on home */}
         {activeSection === "home" && (
           <section className="mb-12 relative h-[400px] rounded-lg overflow-hidden bg-gradient-to-b from-black/10 to-[#141414] bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/c31c3123-3df7-4359-8b8c-475bd2d9925d/15feb590-3d73-45e9-9e4a-2eb334c33cbb/FR-en-20231225-popsignuptwoweeks-perspective_alpha_website_large.jpg')] bg-cover bg-center flex flex-col justify-end p-8">
-            <h1 className="text-5xl m-0 mb-4">Bienvenue sur EFREIFlix</h1>
+            <h1 className="text-5xl m-0 mb-4">Bienvenue sur EFREIFélix</h1>
             <p className="text-xl max-w-[600px] mb-6">
               Découvrez notre sélection de films et séries. {!isProduction && "Notez vos favoris et ajoutez-les à votre liste personnalisée."}
             </p>

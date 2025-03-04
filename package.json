@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "start": "concurrently \"npm --prefix db start\" \"npm --prefix catalogue_G1 start\" \"npm --prefix search start\" \"npm --prefix userProfile start\" \"npm --prefix video-player start\"  \"npm --prefix comments-mfe start\" \"npm --prefix menu_G1 start\" \"npm --prefix watchlist start\" \"npm --prefix mfe-notation start\" \"npm --prefix mfe-ariane start\" \"npm --prefix mfe-watchlist start\" \"npm --prefix product_fiche start\" \"npm --prefix recomendations start\" \"npm --prefix shell start\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}
