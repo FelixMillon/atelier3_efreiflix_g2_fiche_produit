@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState, useRef } from 'react';
 
 
 // Remove header import
@@ -36,6 +36,80 @@ const UserProfile = !isProduction ? lazyLoad(() => import('userprofile/userProfi
   <div className="p-4 bg-red-900 rounded">Le profil utilisateur n'a pas pu être chargé.</div>) : null;
 const Favoris = !isProduction ? lazyLoad(() => import('favoris/Watchlist'),
   <div className="p-4 bg-red-900 rounded">Les favoris n'ont pas pu être chargés.</div>) : null;
+
+// SearchWrapper component for integrating the Search MFE
+const SearchWrapper = () => {
+  const searchRef = useRef(null);
+  let vueInstance = null;
+
+  useEffect(() => {
+    // Dynamic import of search MFE (assuming the correct import path)
+    const mountSearch = async () => {
+      try {
+        // Import the Vue component
+        const { mount } = await import("search/bootstrap");
+
+        // Mount the Vue component on the ref element
+        const unmount = mount(searchRef.current);
+
+        // Delay to ensure Vue component is properly mounted
+        setTimeout(() => {
+          // Add event listener for search event
+          searchRef.current.addEventListener("search", handleSearch);
+          searchRef.current.addEventListener(
+            "resultSelected",
+            handleResultSelected
+          );
+        }, 100);
+
+        return () => {
+          searchRef.current?.removeEventListener("search", handleSearch);
+          searchRef.current?.removeEventListener(
+            "resultSelected",
+            handleResultSelected
+          );
+          unmount();
+        };
+      } catch (error) {
+        console.error("Failed to load Search MFE:", error);
+      }
+    };
+
+    if (searchRef.current) {
+      const cleanup = mountSearch();
+      return () => {
+        cleanup?.();
+      };
+    }
+  }, []);
+
+  const handleSearch = async (event) => {
+    try {
+      const searchTerm = event.detail;
+      console.log("Searching for:", searchTerm);
+
+      const response = await fetch(
+        `http://localhost:3001/movies?q=${searchTerm}`
+      );
+      const searchResults = await response.json();
+      console.log("Search results:", searchResults);
+
+      const resultsEvent = new CustomEvent("searchResults", {
+        detail: searchResults,
+      });
+      window.dispatchEvent(resultsEvent);
+    } catch (error) {
+      console.error("Search error:", error);
+    }
+  };
+
+  const handleResultSelected = (event) => {
+    const movie = event.detail;
+    console.log("Movie selected:", movie);
+  };
+
+  return <div ref={searchRef} className="w-full" />;
+};
 
 // Error boundary component for handling loading errors
 class ErrorBoundary extends React.Component {
