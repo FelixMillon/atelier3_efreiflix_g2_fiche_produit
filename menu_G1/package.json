@@ -1,19 +1,14 @@
 {
-  "name": "mfe-catalogue-g2",
+  "name": "efreiflix-mfe-skeleton",
   "version": "1.0.0",
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "dev": "webpack serve --mode development",
-    "vercel-build": "webpack --mode production"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "axios": "^1.8.1",
-    "json-server": "^1.0.0-beta.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-slick": "^0.30.3",
-    "slick-carousel": "^1.8.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.9",

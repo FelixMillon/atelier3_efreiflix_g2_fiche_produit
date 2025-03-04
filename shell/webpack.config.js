@@ -55,7 +55,20 @@ module.exports = {
           : 'userProfile@http://localhost:3034/userProfile.js',
         favoris: process.env.NODE_ENV === 'production'
           ? 'favoris@https://mfe-g2-favoris.vercel.app/remoteEntry.js'
-          : 'favoris@http://localhost:3010/remoteEntry.js'
+          : 'favoris@http://localhost:3010/remoteEntry.js',
+        // We're removing the example MFEs (header and skeleton)
+        // header: 'header@http://localhost:3001/remoteEntry.js',
+        // skeleton: 'skeleton@http://localhost:3002/remoteEntry.js',
+        recommendations: 'recommendations@http://localhost:3055/remoteEntry.js',
+        watchlist: 'watchlist@http://localhost:3031/watchlist_chunk.js',
+        notation: 'notation@http://localhost:3032/Notation.js',
+        preview: 'preview@http://localhost:3033/productPreview.js',
+        comments: 'comments@http://localhost:3025/Comments.js',
+        userprofile: 'userProfile@http://localhost:3034/userProfile.js',
+        favoris: 'favoris@http://localhost:3010/remoteEntry.js',
+        // Déclaration du micro-frontend Header
+        // Format: "nom_remote@url/fichier_entree.js"
+        menu_G1: 'menu_G1@http://localhost:3004/remoteEntry.js',
       },
 
       shared: {
