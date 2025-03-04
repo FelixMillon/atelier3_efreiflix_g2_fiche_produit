@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Menu from './Menu';
+import './styles.css';
 
 const mount = (el) => {
   const root = createRoot(el);

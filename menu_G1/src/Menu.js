@@ -54,7 +54,7 @@ const Menu = () => {
                 genres.map((genre, index) => (
                   <div
                     key={index}
-                    className="cursor-pointer hover:text-red-500 transition duration-200"
+                    className="cursor-pointer hover:text-red-500 transition duration-200 pb-4"
                     onClick={() => handleGenreClick(genre)}
                     style={{ cursor: 'pointer' }}
                   >
