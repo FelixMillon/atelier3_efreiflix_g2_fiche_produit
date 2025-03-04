@@ -8,7 +8,9 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: 'http://localhost:3003/', // Different port from header MFE
+    publicPath: process.env.NODE_ENV === 'production' 
+      ? 'https://mfe-g2-catalogue.vercel.app/' 
+      : 'http://localhost:3003/',
   },
   devServer: {
     port: 3003, // Different port from header MFE
@@ -47,7 +49,9 @@ module.exports = {
         './Catalogue': './src/Catalogue',
       },
       remotes: {
-        preview: 'preview@http://localhost:3033/productPreview.js',
+        preview: process.env.NODE_ENV === 'production'
+          ? 'preview@https://your-preview-url.vercel.app/productPreview.js'
+          : 'preview@http://localhost:3033/productPreview.js',
       },
       shared: {
         react: {

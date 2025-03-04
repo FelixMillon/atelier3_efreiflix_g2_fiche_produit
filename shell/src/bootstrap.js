@@ -17,9 +17,62 @@ import './styles.css';
 
 // Mount function to start up the app
 const mount = (el) => {
-  const root = createRoot(el);
-  root.render(<App />);
-  return root;
+  try {
+    const root = createRoot(el);
+    
+    // Add error handling for rendering
+    try {
+      root.render(<App />);
+    } catch (error) {
+      console.error('Error rendering the application:', error);
+      root.render(
+        <div style={{ 
+          padding: '20px', 
+          backgroundColor: '#E50914', 
+          color: 'white',
+          borderRadius: '8px',
+          margin: '20px',
+          fontFamily: 'Arial, sans-serif'
+        }}>
+          <h2>Une erreur est survenue</h2>
+          <p>Impossible de charger l'application EFREIFlix. Veuillez réessayer plus tard.</p>
+          <button 
+            onClick={() => window.location.reload()}
+            style={{
+              backgroundColor: 'white',
+              color: '#E50914',
+              border: 'none',
+              padding: '8px 16px',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              marginTop: '10px',
+              fontWeight: 'bold'
+            }}
+          >
+            Rafraîchir la page
+          </button>
+        </div>
+      );
+    }
+    
+    return root;
+  } catch (error) {
+    console.error('Fatal error mounting the application:', error);
+    // Display a basic error message if createRoot fails
+    el.innerHTML = `
+      <div style="padding: 20px; background-color: #E50914; color: white; border-radius: 8px; margin: 20px; font-family: Arial, sans-serif">
+        <h2>Erreur critique</h2>
+        <p>Impossible d'initialiser l'application EFREIFlix.</p>
+        <button 
+          onclick="window.location.reload()"
+          style="background-color: white; color: #E50914; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-top: 10px; font-weight: bold"
+        >
+          Rafraîchir la page
+        </button>
+      </div>
+    `;
+    return null;
+  }
 };
 
 // If we are in development and in isolation,

@@ -22,5 +22,4 @@ if (process.env.NODE_ENV === "development") {
   }
 }
 
-// We are running through the shell
 export { mount };

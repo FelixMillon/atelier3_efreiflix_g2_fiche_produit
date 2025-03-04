@@ -9,10 +9,12 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
-    publicPath: "http://localhost:3003/", // Different port from other MFEs
+    publicPath: process.env.NODE_ENV === 'production' 
+      ? 'https://mfe-g2-search.vercel.app/' 
+      : 'http://localhost:3029/',
   },
   devServer: {
-    port: 3003, // Different port from other MFEs
+    port: 3029, // Different port from other MFEs
     static: {
       directory: path.join(__dirname, "public"),
     },
@@ -52,12 +54,13 @@ module.exports = {
       filename: "remoteEntry.js",
       exposes: {
         "./Search": "./src/Search.vue",
+        "./bootstrap": "./src/bootstrap.js"
       },
       shared: {
         vue: {
           singleton: true,
           requiredVersion: dependencies.vue,
-          eager: true,
+          eager: process.env.NODE_ENV === "production",
         },
       },
     }),

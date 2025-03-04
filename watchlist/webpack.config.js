@@ -59,6 +59,9 @@ module.exports = {
       exposes: {
         './Watchlist': './src/Watchlist', // Expose le composant Header (chemin relatif)
       },
+      remotes: {
+        preview: 'preview@http://localhost:3033/productPreview.js',
+      },
       shared: { // Configuration des dépendances partagées
         react: { 
           singleton: true, 
