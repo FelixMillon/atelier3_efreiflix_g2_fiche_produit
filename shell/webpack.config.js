@@ -43,7 +43,8 @@ module.exports = {
         // Format: "nom_remote@url/fichier_entree.js"
         header: 'header@http://localhost:3001/remoteEntry.js', // Configuration pour consommer le MFE 'header'
         skeleton: 'skeleton@http://localhost:3002/remoteEntry.js',
-        catalogue_G1: 'catalogue_G1@http://localhost:3003/remoteEntry.js'
+        catalogue_G1: 'catalogue_G1@http://localhost:3003/remoteEntry.js',
+        menu_G1: 'menu_G1@http://localhost:3004/remoteEntry.js',
       },
 
       shared: {
